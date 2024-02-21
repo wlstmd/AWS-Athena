@@ -1,0 +1,36 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Principal": {
+              "AWS": "arn:aws:iam::600734575887:root"
+          },
+          "Action": "s3:PutObject",
+          "Resource": "arn:aws:s3:::버킷 이름/result/AWSLogs/AWS 계정 ID/*"
+      },
+      {
+          "Effect": "Allow",
+          "Principal": {
+              "Service": "logdelivery.elb.amazonaws.com"
+          },
+          "Action": "s3:GetBucketAcl",
+          "Resource": "arn:aws:s3:::버킷 이름"
+      },
+      {
+          "Sid": "S3PolicyStmt-DO-NOT-MODIFY-1708255484378",
+          "Effect": "Allow",
+          "Principal": {
+              "Service": "logging.s3.amazonaws.com"
+          },
+          "Action": "s3:PutObject",
+          "Resource": "arn:aws:s3:::버킷 이름/*",
+          "Condition": {
+              "StringEquals": {
+                  "aws:SourceAccount": "AWS 계정 ID"
+              }
+          }
+      }
+  ]
+}
+
